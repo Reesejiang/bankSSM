@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.ExchangeMapper">
+  <resultMap id="BaseResultMap" type="com.model.Exchange">
+    <id column="exchange_id" jdbcType="INTEGER" property="exchangeId" />
+    <result column="account_id" jdbcType="INTEGER" property="accountId" />
+    <result column="product_id" jdbcType="INTEGER" property="productId" />
+    <result column="integral_num" jdbcType="INTEGER" property="integralNum" />
+    <result column="exchange_date" jdbcType="TIMESTAMP" property="exchangeDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    exchange_id, account_id, product_id, integral_num, exchange_date
+  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from exchange
+    where exchange_id = #{exchangeId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from exchange
+    where exchange_id = #{exchangeId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insertSelective" parameterType="com.model.Exchange">
+    insert into exchange
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="exchangeId != null">
+        exchange_id,
+      </if>
+      <if test="accountId != null">
+        account_id,
+      </if>
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="integralNum != null">
+        integral_num,
+      </if>
+      <if test="exchangeDate != null">
+        exchange_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="exchangeId != null">
+        #{exchangeId,jdbcType=INTEGER},
+      </if>
+      <if test="accountId != null">
+        #{accountId,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="integralNum != null">
+        #{integralNum,jdbcType=INTEGER},
+      </if>
+      <if test="exchangeDate != null">
+        #{exchangeDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.Exchange">
+    update exchange
+    <set>
+      <if test="accountId != null">
+        account_id = #{accountId,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="integralNum != null">
+        integral_num = #{integralNum,jdbcType=INTEGER},
+      </if>
+      <if test="exchangeDate != null">
+        exchange_date = #{exchangeDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where exchange_id = #{exchangeId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="findExchangeAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from exchange
+  </select>
+</mapper>

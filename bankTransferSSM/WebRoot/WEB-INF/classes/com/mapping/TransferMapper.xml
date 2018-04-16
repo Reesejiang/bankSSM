@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.TransferMapper">
+  <resultMap id="BaseResultMap" type="com.model.Transfer">
+    <id column="transfer_id" jdbcType="INTEGER" property="transferId" />
+    <result column="transfer_name" jdbcType="VARCHAR" property="transferName" />
+    <result column="account_id" jdbcType="INTEGER" property="accountId" />
+    <result column="account_name" jdbcType="VARCHAR" property="accountName" />
+    <result column="account_code" jdbcType="VARCHAR" property="accountCode" />
+    <result column="payee_account_id" jdbcType="INTEGER" property="payeeAccountId" />
+    <result column="payee_account_name" jdbcType="INTEGER" property="payeeAccountName" />
+    <result column="payee_account_code" jdbcType="INTEGER" property="payeeAccountCode" />
+    <result column="currency_type" jdbcType="CHAR" property="currencyType" />
+    <result column="actual_amount" jdbcType="DOUBLE" property="actualAmount" />
+    <result column="transfer_amount" jdbcType="DOUBLE" property="transferAmount" />
+    <result column="exchange_rate" jdbcType="DOUBLE" property="exchangeRate" />
+    <result column="charge_price" jdbcType="DOUBLE" property="chargePrice" />
+    <result column="transfer_date" jdbcType="TIMESTAMP" property="transferDate" />
+    <result column="transfer_type" jdbcType="CHAR" property="transferType" />
+    <result column="account_balance" jdbcType="DOUBLE" property="accountBalance" />
+    <result column="payee_account_balance" jdbcType="DOUBLE" property="payeeAccountBalance" />
+    <result column="is_bank" jdbcType="CHAR" property="isBank" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    transfer_id, transfer_name, account_id, payee_account_id, currency_type, actual_amount, 
+    transfer_amount, exchange_rate, charge_price, transfer_date, transfer_type, account_balance, payee_account_balance,
+    is_bank,location
+  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from transfer
+    where transfer_id = #{transferId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from transfer
+    where transfer_id = #{transferId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.model.Transfer">
+    insert into transfer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="transferId != null">
+        transfer_id,
+      </if>
+      <if test="transferName != null">
+        transfer_name,
+      </if>
+      <if test="accountId != null">
+        account_id,
+      </if>
+      <if test="payeeAccountId != null">
+        payee_account_id,
+      </if>
+      <if test="currencyType != null">
+        currency_type,
+      </if>
+      <if test="actualAmount != null">
+        actual_amount,
+      </if>
+      <if test="transferAmount != null">
+        transfer_amount,
+      </if>
+      <if test="exchangeRate != null">
+        exchange_rate,
+      </if>
+      <if test="chargePrice != null">
+        charge_price,
+      </if>
+      <if test="transferType != null">
+        transfer_type,
+      </if>
+      <if test="accountBalance != null">
+        account_balance,
+      </if>
+      <if test="payeeAccountBalance != null">
+        payee_account_balance,
+      </if>
+      <if test="isBank != null">
+        is_bank,
+      </if>
+      <if test="location != null">
+        location,
+      </if>
+      transfer_date
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="transferId != null">
+        #{transferId,jdbcType=INTEGER},
+      </if>
+      <if test="transferName != null">
+        #{transferName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null">
+        #{accountId,jdbcType=INTEGER},
+      </if>
+      <if test="payeeAccountId != null">
+        #{payeeAccountId,jdbcType=INTEGER},
+      </if>
+      <if test="currencyType != null">
+        #{currencyType,jdbcType=CHAR},
+      </if>
+      <if test="actualAmount != null">
+        #{actualAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="transferAmount != null">
+        #{transferAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="exchangeRate != null">
+        #{exchangeRate,jdbcType=DOUBLE},
+      </if>
+      <if test="chargePrice != null">
+        #{chargePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="transferType != null">
+        #{transferType,jdbcType=CHAR},
+      </if>
+      <if test="accountBalance != null">
+        #{accountBalance,jdbcType=DOUBLE},
+      </if>
+      <if test="payeeAccountBalance != null">
+      	#{payeeAccountBalance,jdbcType=DOUBLE},
+      </if>
+      <if test="isBank != null">
+        #{isBank,jdbcType=CHAR},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=VARCHAR},
+      </if>
+      now()
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.Transfer">
+    update transfer
+    <set>
+      <if test="transferName != null">
+        transfer_name = #{transferName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null">
+        account_id = #{accountId,jdbcType=INTEGER},
+      </if>
+      <if test="payeeAccountId != null">
+        payee_account_id = #{payeeAccountId,jdbcType=INTEGER},
+      </if>
+      <if test="currencyType != null">
+        currency_type = #{currencyType,jdbcType=CHAR},
+      </if>
+      <if test="actualAmount != null">
+        actual_amount = #{actualAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="transferAmount != null">
+        transfer_amount = #{transferAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="exchangeRate != null">
+        exchange_rate = #{exchangeRate,jdbcType=DOUBLE},
+      </if>
+      <if test="chargePrice != null">
+        charge_price = #{chargePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="transferType != null">
+        transfer_type = #{transferType,jdbcType=CHAR},
+      </if>
+      <if test="accountBalance != null">
+        account_balance = #{accountBalance,jdbcType=DOUBLE},
+      </if>
+      <if test="payeeAccountBalance != null">
+      	payee_account_balance = #{payeeAccountBalance,jdbcType=DOUBLE},
+      </if>
+      <if test="isBank != null">
+        is_bank = #{isBank,jdbcType=CHAR},
+      </if>
+      <if test="location != null">
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where transfer_id = #{transferId,jdbcType=INTEGER}
+  </update>
+
+  <select id="findTransferAll" resultMap="BaseResultMap">
+    select t.*,aa.account_name,aa.account_code,pa.account_name payee_account_name,pa.account_code payee_account_code from transfer t 
+    left join account aa on t.account_id = aa.account_id
+    left join account pa on t.payee_account_id = pa.account_id
+    where t.transfer_type = #{transferType,jdbcType=VARCHAR}
+  </select>
+</mapper>

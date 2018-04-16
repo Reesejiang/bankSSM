@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.ChargeMapper">
+  <resultMap id="BaseResultMap" type="com.model.Charge">
+    <id column="charge_id" jdbcType="INTEGER" property="chargeId" />
+    <result column="begin_price" jdbcType="DOUBLE" property="beginPrice" />
+    <result column="end_price" jdbcType="DOUBLE" property="endPrice" />
+    <result column="charge" jdbcType="DOUBLE" property="charge" />
+    <result column="charge_type" jdbcType="CHAR" property="chargeType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    charge_id, begin_price, end_price, charge, charge_type
+  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from charge
+    where charge_id = #{chargeId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from charge
+    where charge_id = #{chargeId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.model.Charge">
+    insert into charge
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="chargeId != null">
+        charge_id,
+      </if>
+      <if test="beginPrice != null">
+        begin_price,
+      </if>
+      <if test="endPrice != null">
+        end_price,
+      </if>
+      <if test="charge != null">
+        charge,
+      </if>
+      <if test="chargeType != null">
+        charge_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="chargeId != null">
+        #{chargeId,jdbcType=INTEGER},
+      </if>
+      <if test="beginPrice != null">
+        #{beginPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="endPrice != null">
+        #{endPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="charge != null">
+        #{charge,jdbcType=DOUBLE},
+      </if>
+      <if test="chargeType != null">
+        #{chargeType,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.Charge">
+    update charge
+    <set>
+      <if test="beginPrice != null">
+        begin_price = #{beginPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="endPrice != null">
+        end_price = #{endPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="charge != null">
+        charge = #{charge,jdbcType=DOUBLE},
+      </if>
+      <if test="chargeType != null">
+        charge_type = #{chargeType,jdbcType=CHAR},
+      </if>
+    </set>
+    where charge_id = #{chargeId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="findChargeAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from charge
+  </select>
+</mapper>
